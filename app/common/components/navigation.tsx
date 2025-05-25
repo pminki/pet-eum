@@ -10,82 +10,58 @@ import {
   navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
 import { cn } from "~/lib/utils";
+import { Button } from "./ui/button";
+import { BarChart3Icon, BellIcon, CalendarDays, CreditCard, LogOutIcon, MessageCircleIcon, SettingsIcon, UserIcon } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "./ui/dropdown-menu";
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const menus = [  
   {
-    name: "이용방법",
-    to: "/guide",
-  },
-  {
-    name: "예약하기",
-    to: "/booking",
-  },
-  {
-    name: "커뮤니티",
-    to: "/community",
+    name: "서비스 찾기",
+    to: "/services",
     items: [
       {
-        name: "전체글",
-        description: "전체글이예요",
-        to: "/community",
+        name: "펫시팅",
+        description:  "방문/위탁",
+        to: "pet-sitting",
       },
       {
-        name: "인기글",
-        description: "요즘 가장 핫한 글이예요요",
-        to: "/community?sort=top",
+        name: "도그워킹",
+        description:  "산책 서비스",
+        to: "dog-walking",
       },
       {
-        name: "최근글",
-        description: "최근에 올라온 글 목록이예요",
-        to: "/community?sort=new",
+        name: "데이케어",
+        description:  "낮 시간 돌봄",
+        to: "day-care",
       },
       {
-        name: "글쓰기",
-        description: "커뮤니티에 글을 올릴 수 있어요",
-        to: "/community/create",
+        name: "하우스시팅",
+        description:  "펫시터가 집에서 돌봄",
+        to: "house-sitting",
       },
-    ],
-  },  
-  {
-    name: "보호자",
-    to: "/guardian",
-    items: [
-      {
-        name: "나의 반려동물",
-        description: "나의 반려동물 정보를 관리하세요",
-        to: "/guardian/pets",
-      },
-      {
-        name: "예약 내역",
-        description: "나의 예약 정보",
-        to: "/guardian/bookings",
-      },
-      {
-        name: "결제 정보",
-        description: "나의 결제 내역",
-        to: "/guardian/payment",
-      },
-    ],
+    ]
   },
   {
-    name: "도우미",
-    to: "/helper",
-    items: [
-      {
-        name: "도우미 프로필",
-        description: "도우미 프로필필",
-        to: "/helper/id",
-      },
-      {
-        name: "도우미 예약 현황",
-        description: "도우미의 예약 현황",
-        to: "/helper/booking",
-      },
-    ],
+    name: "펫시터 되기",
+    to: "/become-sitter",
+  },
+  {
+    name: "리뷰",
+    to: "/review",
   },
 ];
 
-export default function Navigation() {
+export default function Navigation({
+  isLoggedIn,
+  hasNotifications,
+  hasMessages,
+}: {
+  isLoggedIn: boolean;
+  hasNotifications: boolean;
+  hasMessages: boolean;
+}) {
   return (
     <nav className="flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
       <div className="flex items-center">
@@ -103,7 +79,7 @@ export default function Navigation() {
                       <NavigationMenuTrigger>{menu.name}</NavigationMenuTrigger>
                     </Link>
                     <NavigationMenuContent>
-                      <ul className="grid w-[600px] font-light gap-3 p-4 grid-cols-2">
+                      <ul className="grid w-[250px] font-light gap-1 p-1 grid-cols-1">
                         {menu.items?.map((item) => (
                           <NavigationMenuItem
                             key={item.name}
@@ -120,12 +96,10 @@ export default function Navigation() {
                                 className="p-3 space-y-1 block leading-none no-underline outline-none"
                                 to={item.to}
                               >
-                                <span className="text-sm font-medium leading-none">
-                                  {item.name}
-                                </span>
-                                <p className="text-xs font-medium leading-none">
-                                  {item.description}
-                                </p>
+                                <div className="text-sm font-medium leading-none inline-block">
+                                  {item.name} 
+                                  <span className="ms-1 text-xs inline-block">({item.description})</span>
+                                </div>                                
                               </Link>
                             </NavigationMenuLink>
                           </NavigationMenuItem>
@@ -143,6 +117,89 @@ export default function Navigation() {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
+      {isLoggedIn ? (
+        <div className="flex items-center gap-4">
+          <Button size="icon" variant="ghost" asChild className="relative">
+            <Link to="/my/notifications">
+              <BellIcon className="size-4" />
+              {hasNotifications && (
+                <div className="absolute top-1.5 right-1.5 size-2 bg-red-500 rounded-full" />
+              )}
+            </Link>
+          </Button>
+          <Button size="icon" variant="ghost" asChild className="relative">
+            <Link to="my/messages">
+              <MessageCircleIcon className="size-4" />
+              {hasMessages && (
+                <div className="absolute top-1.5 right-1.5 size-2 bg-red-500 rounded-full" />
+              )}
+            </Link>
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild className="cursor-pointer">
+              <Avatar>
+                <AvatarImage src="https://github.com/pm1nk1.png" />
+                <AvatarFallback>P</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 me-3">
+              <DropdownMenuLabel className="flex flex-col">
+                <span className="font-medium">아롱이</span>
+                <span className="text-xs text-muted-foreground">@username</span>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link to="my/dashboard">
+                    <BarChart3Icon className="size-4 mr-2" />
+                    대시보드
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link to="my/profile">
+                    <UserIcon className="size-4 mr-2" />
+                    프로필
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link to="my/bookings">
+                    <CalendarDays className="size-4 mr-2" />
+                    예약내역
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link to="my/payment">
+                    <CreditCard className="size-4 mr-2" />
+                    결제정보
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link to="/my/settings">
+                    <SettingsIcon className="size-4 mr-2" />
+                    설정
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link to="auth/logout">
+                  <LogOutIcon className="size-4 mr-2" />
+                  로그아웃
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      ) : (
+        <div className="flex items-center gap-4">
+          <Button asChild variant="secondary">
+            <Link to="/auth/login">Login</Link>
+          </Button>
+          <Button asChild>
+            <Link to="/auth/join">Join</Link>
+          </Button>
+        </div>
+      )}
     </nav>
   );
 }
