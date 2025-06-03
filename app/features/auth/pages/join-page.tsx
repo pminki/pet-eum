@@ -39,7 +39,7 @@ export default function JoinPage() {
           />
           <InputPair
             id="email"
-            label="Email"
+            label="이메일"
             description="Enter your email address"
             name="email"
             required
@@ -48,7 +48,7 @@ export default function JoinPage() {
           />
           <InputPair
             id="password"
-            label="Password"
+            label="비밀번호"
             description="Enter your password"
             name="password"
             required

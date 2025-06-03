@@ -20,7 +20,7 @@ export default function LoginPage() {
         <h1 className="text-2xl font-semibold">Log in to your account</h1>
         <Form className="w-full space-y-4">
           <InputPair
-            label="Email"
+            label="이메일"
             description="Enter your email address"
             name="email"
             id="email"
@@ -30,7 +30,7 @@ export default function LoginPage() {
           />
           <InputPair
             id="password"
-            label="Password"
+            label="비밀번호"
             description="Enter your password"
             name="password"
             required
