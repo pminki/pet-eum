@@ -5,7 +5,7 @@ import { Button } from "~/common/components/ui/button";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Verify OTP | wemake" },
+    { title: "OTP 인증 | 펫이음" },
   ];
 }
 
@@ -27,7 +27,7 @@ export default function OtpPage() {
             id="email"
             required
             type="email"
-            placeholder="i.e wemake@example.com"
+            placeholder="i.e your@example.com"
           />
           <InputPair
             label="OTP"

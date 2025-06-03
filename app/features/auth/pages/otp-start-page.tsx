@@ -6,7 +6,7 @@ import { Button } from "~/common/components/ui/button";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Start OTP | wemake" },
+    { title: "OTP 시작 | 펫이음" },
   ];
 }
 
@@ -28,7 +28,7 @@ export default function OtpStartPage() {
             id="email"
             required
             type="email"
-            placeholder="i.e wemake@example.com"
+            placeholder="i.e your@example.com"
           />
           <Button className="w-full" type="submit">
             Send OTP

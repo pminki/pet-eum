@@ -6,7 +6,7 @@ import AuthButtons from "../components/auth-buttons";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Login | wemake" }
+    { title: "로그인 | 펫이음" }
   ];
 }
 
